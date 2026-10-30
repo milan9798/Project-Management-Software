@@ -1,0 +1,242 @@
+
+.app-sidebar {
+  width: 260px;
+  min-width: 260px;
+  min-height: 100vh;
+  background: #111c32;
+  color: #c4cfe0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 24px 14px 18px;
+  box-sizing: border-box;
+  transition: width 0.25s ease, min-width 0.25s ease;
+  z-index: 10;
+}
+
+.app-sidebar.collapsed {
+  width: 82px;
+  min-width: 82px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 0 4px;
+}
+
+.sidebar-logo {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: linear-gradient(135deg, #4388f5, #2458c7);
+  box-shadow: 0 5px 16px #2463d54a;
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.sidebar-brand-text strong {
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.sidebar-brand-text span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #91a5c4;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 83px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #293954;
+  border-radius: 8px;
+  background: #192741;
+  color: #c4cfe0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.sidebar-toggle:hover {
+  background: #263a59;
+  color: #fff;
+}
+
+.sidebar-section {
+  margin: 52px 10px 15px;
+  color: #7185a5;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.sidebar-link {
+  width: 100%;
+  min-height: 47px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 13px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #aebbd0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: 0.2s ease;
+}
+
+.sidebar-link span {
+  white-space: nowrap;
+}
+
+.sidebar-link:hover {
+  background: #1b2a43;
+  color: #fff;
+}
+
+.sidebar-link.active {
+  background: linear-gradient(100deg, #2868d8, #347df0);
+  color: #fff;
+  border-color: #4b8cff;
+  box-shadow: 0 5px 14px #1555bd36;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding: 17px 10px 0;
+  border-top: 1px solid #26354d;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.sidebar-status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #45d6a0;
+  box-shadow: 0 0 0 4px #45d6a019;
+  flex-shrink: 0;
+}
+
+.sidebar-bottom div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sidebar-bottom strong {
+  font-size: 12px;
+  color: #e9eff8;
+}
+
+.sidebar-bottom span {
+  font-size: 11px;
+  color: #8394ae;
+}
+
+@media (max-width: 600px) {
+  .app-sidebar {
+    width: 220px;
+    min-width: 220px;
+  }
+} 
+
+
+/* ===== PREMIUM SIDEBAR FINISH ===== */
+
+ .app-sidebar {
+  background: linear-gradient(180deg, #111d34 0%, #101a2e 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.045);
+  box-shadow: 7px 0 28px rgba(17, 29, 52, 0.055);
+}
+
+.sidebar-brand {
+  margin-bottom: 8px;
+}
+
+.sidebar-logo {
+  border-radius: 13px;
+  background: linear-gradient(145deg, #5a9aff 0%, #2864d6 100%);
+  box-shadow: 0 7px 20px rgba(45, 111, 226, 0.3);
+}
+
+
+.sidebar-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: inherit;
+}
+
+
+
+.sidebar-section {
+  margin-top: 44px;
+  margin-bottom: 16px;
+  font-size: 9px;
+}
+
+.sidebar-nav {
+  gap: 8px;
+}
+
+.sidebar-link {
+  min-height: 49px;
+  border-radius: 11px;
+  font-size: 12px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-link:hover {
+  transform: translateX(2px);
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.sidebar-link.active {
+  background: linear-gradient(105deg, #2865d4, #397ff0);
+  border-color: rgba(133, 177, 255, 0.35);
+  box-shadow: 0 7px 18px rgba(26, 88, 196, 0.26);
+}
+
+.sidebar-bottom {
+  padding-top: 19px;
+} 
+
+
+
+
+
+
+
