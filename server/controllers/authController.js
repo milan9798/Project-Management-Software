@@ -120,6 +120,12 @@ const login = async (req, res) => {
       [email.trim().toLowerCase()]
     );
 
+      
+ console.log("LOGIN EMAIL:", email.trim().toLowerCase());
+console.log("USER FOUND:", users.length > 0);
+
+
+
     if (users.length === 0) {
       return res.status(401).json({
         success: false,
@@ -133,6 +139,11 @@ const login = async (req, res) => {
       password,
       user.password
     );
+
+    console.log("PASSWORD MATCH:", passwordMatches);
+
+    console.log("LOGIN DEBUG: PASSWORD VERIFIED");
+
 
     if (!passwordMatches) {
       return res.status(401).json({
@@ -157,6 +168,12 @@ const login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "8h" }
     );
+
+
+    console.log("LOGIN DEBUG: JWT GENERATED");
+
+console.log("LOGIN DEBUG: SENDING SUCCESS RESPONSE");
+
 
     return res.status(200).json({
       success: true,
