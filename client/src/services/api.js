@@ -69,6 +69,8 @@
 
 
 
+
+
 const API_BASE_URL = (
   import.meta.env.VITE_API_URL ||
   "https://project-management-software-p7lh.onrender.com/api"
@@ -81,7 +83,10 @@ const api = {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({
+        email: email.trim().toLowerCase(),
+        password,
+      }),
     });
 
     const data = await response.json();
