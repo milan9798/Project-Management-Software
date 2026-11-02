@@ -1,84 +1,8 @@
 
-// import { Bell, ChevronDown, Search } from "lucide-react";
-// import "./Header.css";
-
-// const pageTitles = {
-//   dashboard: "Dashboard",
-//   projects: "Project Management",
-//   "design-bom": "Design & BOM",
-//   dispatch: "Dispatch Management",
-//   "settings-users": "Settings & Users",
-// };
-
-// export default function Header({ activePage, user, onLogout }) {
-//   const displayName =
-//     user?.name ||
-//     user?.fullName ||
-//     user?.username ||
-//     "Administrator";
-
-//   const initials = displayName
-//     .split(" ")
-//     .filter(Boolean)
-//     .slice(0, 2)
-//     .map((part) => part[0])
-//     .join("")
-//     .toUpperCase();
-
-//   return (
-//     <header className="app-header">
-//       <div className="header-heading">
-//         <span className="header-eyebrow">TOPLAND ENGINE / WORKSPACE</span>
-//         <h1>{pageTitles[activePage] || "Dashboard"}</h1>
-//       </div>
-
-//       <div className="header-actions">
-//         <label className="header-search">
-//           <Search size={17} />
-//           <input
-//             type="search"
-//             placeholder="Search projects..."
-//             aria-label="Search projects"
-//           />
-//           <kbd>⌘ K</kbd>
-//         </label>
-
-//         <button
-//           type="button"
-//           className="header-icon-button"
-//           title="Notifications"
-//           aria-label="Notifications"
-//         >
-//           <Bell size={19} />
-//           <span className="notification-dot" />
-//         </button>
-
-//         <div className="header-user">
-//           <div className="header-avatar">{initials || "A"}</div>
-//           <div className="header-user-info">
-//             <strong>{displayName}</strong>
-//             <span>{user?.role || "Administrator"}</span>
-//           </div>
-//           <ChevronDown size={16} className="header-chevron" />
-
-//           <button
-//             type="button"
-//             className="header-logout"
-//             onClick={onLogout}
-//           >
-//             Logout
-//           </button>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// }
-
-
-
-
-
 import { useEffect, useRef, useState } from "react";
+  
+import { useNavigate } from "react-router-dom";
+
 import {
   Bell,
   ChevronDown,
@@ -117,11 +41,21 @@ const pageDetails = {
   },
 };
 
+
+
 export default function Header({ activePage, user, onLogout }) {
   const [search, setSearch] = useState("");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [notificationsRead, setNotificationsRead] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [projects, setProjects] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+
 
   const searchRef = useRef(null);
   const headerRef = useRef(null);
@@ -156,22 +90,32 @@ export default function Header({ activePage, user, onLogout }) {
         searchRef.current?.focus();
       }
 
-      if (event.key === "Escape") {
-        setNotificationsOpen(false);
-        setProfileOpen(false);
-        searchRef.current?.blur();
-      }
+
+     if (event.key === "Escape") {
+            setNotificationsOpen(false);
+            setProfileOpen(false);
+            setSearchOpen(false);
+          searchRef.current?.blur();
+        }
+
     };
 
+
     const handleOutsideClick = (event) => {
-      if (
-        headerRef.current &&
-        !headerRef.current.contains(event.target)
-      ) {
-        setNotificationsOpen(false);
-        setProfileOpen(false);
-      }
-    };
+
+  if (
+    headerRef.current &&
+    !headerRef.current.contains(event.target)
+
+  ) {
+
+    setNotificationsOpen(false);
+    setProfileOpen(false);
+    setSearchOpen(false);
+  }
+}; 
+
+
 
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("mousedown", handleOutsideClick);
@@ -182,9 +126,79 @@ export default function Header({ activePage, user, onLogout }) {
     };
   }, []);
 
+
+
+  
+  useEffect(() => {
+  const controller = new AbortController();
+
+  const loadProjects = async () => {
+    try {
+      setSearchLoading(true);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL || "http://localhost:5000/api"}/projects`,
+        { signal: controller.signal }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error("Projects load nahi ho sake.");
+      }
+
+      setProjects(Array.isArray(result.data) ? result.data : []);
+      setSearchError("");
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        setSearchError(error.message || "Search load nahi ho saki.");
+      }
+    } finally {
+      if (!controller.signal.aborted) {
+        setSearchLoading(false);
+      }
+    }
+  };
+
+  loadProjects();
+
+  return () => controller.abort();
+}, []);
+   
+
+
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
   };
+
+
+    const searchResults = projects.filter((project) => {
+  const query = search.trim().toLowerCase();
+
+  if (!query) return false;
+
+  const searchableValues = [
+    project.projectName,
+    project.projectCode,
+    project.customerName,
+    project.workOrderNumber,
+    project.projectType,
+    project.status,
+    project.id,
+  ];
+
+  return searchableValues.some((value) =>
+    String(value || "").toLowerCase().includes(query)
+  );
+}).slice(0, 6);
+
+const openProjectResults = () => {
+  setSearchOpen(false);
+  setSearch("");
+  navigate("/projects");
+};
+
+
 
   const clearSearch = () => {
     setSearch("");
@@ -219,8 +233,13 @@ export default function Header({ activePage, user, onLogout }) {
       </div>
 
       <div className="header-actions">
+
+
+       <div className="header-search-anchor">
+
         <label className="header-search">
           <Search size={17} className="header-search-icon" />
+
 
           <input
             ref={searchRef}
@@ -228,8 +247,14 @@ export default function Header({ activePage, user, onLogout }) {
             placeholder="Search projects..."
             aria-label="Search projects"
             value={search}
-            onChange={handleSearchChange}
-          />
+            onChange={(event) => {
+              handleSearchChange(event);
+              setSearchOpen(true);
+                        }}
+               onFocus={() => {
+             if (search.trim()) setSearchOpen(true);
+              }}
+             />
 
           {search ? (
             <button
@@ -240,6 +265,7 @@ export default function Header({ activePage, user, onLogout }) {
             >
               <X size={15} />
             </button>
+
           ) : (
             <span className="header-shortcut">
               <Command size={11} />
@@ -247,6 +273,123 @@ export default function Header({ activePage, user, onLogout }) {
             </span>
           )}
         </label>
+
+
+        {searchOpen && search.trim() && (
+  <div className="header-search-results">
+
+    <div className="header-search-results-heading">
+      <span>SEARCH RESULTS</span>
+      {searchLoading && <span>Loading...</span>}
+    </div>
+
+    {searchError ? (
+      <div className="header-search-empty">
+        {searchError}
+      </div>
+    ) : searchResults.length > 0 ? (
+      searchResults.map((project) => (
+        <button
+          type="button"
+          className="header-search-result"
+          key={project.id || project.projectCode}
+          onClick={openProjectResults}
+        >
+          <span className="header-search-result-icon">
+            <FolderKanban size={17} />
+          </span>
+
+          <span className="header-search-result-info">
+            <strong>
+              {project.projectName || project.name || "Untitled Project"}
+            </strong>
+
+            <small>
+              {project.projectCode || "No project code"}
+              {" · "}
+              {project.customerName || "No customer"}
+            </small>
+          </span>
+
+          <ChevronRight size={16} />
+        </button>
+      ))
+    ) : !searchLoading ? (
+      <div className="header-search-empty">
+        <Search size={19} />
+        <strong>No results found</strong>
+        <span>Try another project name, code or customer.</span>
+      </div>
+    ) : null}
+
+    <div className="header-search-footer">
+      Search across Topland Engine projects
+    </div>
+
+  </div>
+)}
+
+
+
+
+       </div>
+
+         
+        
+        {searchOpen && search.trim() && (
+  <div className="header-search-results">
+    <div className="header-search-results-heading">
+      <span>SEARCH RESULTS</span>
+      {searchLoading && <span>Loading...</span>}
+    </div>
+
+    {searchError ? (
+      <div className="header-search-empty">
+        {searchError}
+      </div>
+    ) : searchResults.length > 0 ? (
+      searchResults.map((project) => (
+        <button
+          type="button"
+          className="header-search-result"
+          key={project.id || project.projectCode}
+          onClick={openProjectResults}
+        >
+          <span className="header-search-result-icon">
+            <FolderKanban size={17} />
+          </span>
+
+          <span className="header-search-result-info">
+            <strong>
+              {project.projectName || project.name || "Untitled Project"}
+            </strong>
+
+            <small>
+              {project.projectCode || "No project code"}
+              {" · "}
+              {project.customerName || "No customer"}
+            </small>
+          </span>
+
+          <ChevronRight size={16} />
+        </button>
+      ))
+    ) : !searchLoading ? (
+      <div className="header-search-empty">
+        <Search size={19} />
+        <strong>No results found</strong>
+        <span>Try another project name, code or customer.</span>
+      </div>
+    ) : null}
+
+    <div className="header-search-footer">
+      Search across Topland Engine projects
+    </div>
+  </div>
+        )}
+
+
+
 
         <div className="header-dropdown-anchor">
           <button
@@ -307,7 +450,9 @@ export default function Header({ activePage, user, onLogout }) {
               </div>
             </section>
           )}
+
         </div>
+
 
         <div className="header-profile-anchor">
           <button
@@ -336,6 +481,7 @@ export default function Header({ activePage, user, onLogout }) {
               }`}
             />
           </button>
+
 
           {profileOpen && (
             <div
@@ -386,7 +532,10 @@ export default function Header({ activePage, user, onLogout }) {
             </div>
           )}
         </div>
+
+
       </div>
+      
     </header>
   );
 }

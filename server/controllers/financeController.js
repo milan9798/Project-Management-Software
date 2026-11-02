@@ -71,6 +71,7 @@ const [totals] = await db.query(`
 };
 
 // Get revenue entries
+
 const getRevenue = async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -90,6 +91,7 @@ const getRevenue = async (req, res) => {
 };
 
 // Add a revenue entry
+
 const createRevenue = async (req, res) => {
   try {
     const {
@@ -154,6 +156,7 @@ const createRevenue = async (req, res) => {
 };
 
 // Get expense entries
+
 const getExpenses = async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -173,6 +176,7 @@ const getExpenses = async (req, res) => {
 };
 
 // Add an expense entry
+
 const createExpense = async (req, res) => {
   try {
     const {

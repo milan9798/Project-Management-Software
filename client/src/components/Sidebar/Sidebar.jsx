@@ -22,7 +22,6 @@ const menuItems = [
   { label: "Settings & Users", key: "settings-users", icon: Settings },
 ];
 
-
 export default function Sidebar({
   activePage,
   onNavigate,

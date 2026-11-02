@@ -1,30 +1,4 @@
 
-// const express = require("express");
-// const router = express.Router();
-
-// const {
-//   getDispatches,
-//   createDispatch,
-//   updateDispatchStatus,
-// } = require("../controllers/dispatchController");
-
-// router.get("/", getDispatches);
-// router.post("/", createDispatch);
-// router.patch("/:id/status", updateDispatchStatus);
-
-// module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
 const express = require("express");
 const router = express.Router();
 
@@ -36,6 +10,7 @@ const {
 } = require("../controllers/dispatchController");
 
 // Saare dispatch records dekhna
+
 router.get("/", getDispatches);
 
 // Naya dispatch banana

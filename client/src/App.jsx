@@ -1,5 +1,4 @@
 
-
 import { useState } from "react";
 import {
   BrowserRouter,
@@ -19,7 +18,7 @@ import DesignBOM from "./pages/DesignBOM/DesignBOM";
 import DispatchManagement from "./pages/DispatchManagement/DispatchManagement";
 
 
-import Sidebar from "./components/Sidebar/Sidebar";
+import Sidebar from "./components/sidebar/Sidebar";
 import Header from "./components/Header/Header";
 
 function getSavedAuth() {

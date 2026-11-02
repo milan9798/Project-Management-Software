@@ -1,99 +1,8 @@
 
-
-
-// const prisma = require("../config/prisma");
-// exports.getProjects = async (req, res) => {
-//   try {
-//     const projects = await prisma.project.findMany({
-//       orderBy: { createdAt: "desc" },
-//     });
-
-//     res.json({ success: true, data: projects });
-//   } catch (error) {
-//     console.error("Get projects error:", error.message);
-//     res.status(500).json({
-//       success: false,
-//       message: "Projects load nahi ho sake.",
-//     });
-//   }
-// };
-// exports.createProject = async (req, res) => {
-//   try {
-//     const {
-//       projectCode,
-//       projectName,
-//       customerName,
-//       workOrderNumber,
-//       projectType,
-//       orderValue,
-//       startDate,
-//       deliveryDate,
-//       priority,
-//       status,
-//       description,
-//     } = req.body;
-
-//     if (
-//       !projectCode?.trim() ||
-//       !projectName?.trim() ||
-//       !customerName?.trim() ||
-//       !projectType?.trim()
-//     ) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Project Code, Project Name, Customer Name aur Project Type required hain.",
-//       });
-//     }
-
-//     const project = await prisma.project.create({
-//       data: {
-//         projectCode: projectCode.trim(),
-//         projectName: projectName.trim(),
-//         customerName: customerName.trim(),
-//         workOrderNumber: workOrderNumber || null,
-//         projectType: projectType.trim(),
-//         orderValue: orderValue === "" || orderValue == null
-//           ? 0
-//           : Number(orderValue),
-//         startDate: startDate ? new Date(startDate) : null,
-//         deliveryDate: deliveryDate ? new Date(deliveryDate) : null,
-//         priority: priority || "MEDIUM",
-//         status: status || "PLANNING",
-//         description: description || null,
-//       },
-//     });
-
-//     res.status(201).json({
-//       success: true,
-//       message: "Project successfully save ho gaya.",
-//       data: project,
-//     });
-//   } catch (error) {
-//     if (error.code === "P2002") {
-//       return res.status(409).json({
-//         success: false,
-//         message: "Ye Project Code pehle se exist karta hai.",
-//       });
-//     }
-
-//     console.error("Create project error:", error.message);
-//     res.status(500).json({
-//       success: false,
-//       message: "Project save nahi ho saka.",
-//     });
-//   }
-// };
-
-
-
-
-
-
-
-
 const prisma = require("../config/prisma");
 
 // GET: All projects
+
 exports.getProjects = async (req, res) => {
   try {
     const projects = await prisma.project.findMany({
@@ -111,6 +20,7 @@ exports.getProjects = async (req, res) => {
 };
 
 // POST: Create project
+
 exports.createProject = async (req, res) => {
   try {
     const {
@@ -181,6 +91,7 @@ exports.createProject = async (req, res) => {
 };
 
 // PUT: Update project
+
 exports.updateProject = async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -265,6 +176,7 @@ exports.updateProject = async (req, res) => {
 };
 
 // DELETE: Delete project
+
 exports.deleteProject = async (req, res) => {
   try {
     const id = Number(req.params.id);

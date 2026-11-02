@@ -6,53 +6,6 @@ import api from "../../services/api";
 import toplandLogo from "../../assets/icon.png";
 
 
-
-// function BrandLogo() {
-//   return (
-//     <div className="brand-icon" aria-hidden="true">
-//       <svg viewBox="0 0 24 24" fill="none">
-//         <rect
-//           x="3"
-//           y="3"
-//           width="8"
-//           height="8"
-//           rx="2"
-//           stroke="currentColor"
-//           strokeWidth="1.8"
-//         />
-//         <rect
-//           x="13"
-//           y="3"
-//           width="8"
-//           height="5"
-//           rx="1.5"
-//           stroke="currentColor"
-//           strokeWidth="1.8"
-//         />
-//         <rect
-//           x="13"
-//           y="10"
-//           width="8"
-//           height="11"
-//           rx="2"
-//           stroke="currentColor"
-//           strokeWidth="1.8"
-//         />
-//         <rect
-//           x="3"
-//           y="13"
-//           width="8"
-//           height="8"
-//           rx="2"
-//           stroke="currentColor"
-//           strokeWidth="1.8"
-//         />
-//       </svg>
-//     </div>
-//   );
-// }
-
-
 function BrandLogo() {
   return (
     <div className="brand-icon">
@@ -389,10 +342,6 @@ const handleForgotPassword = () => {
                            disabled={isLoading}
                           >
                   <span>{isLoading ? "Signing in..." : "Sign in to workspace"}</span>
-
-
-
-
 
 
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

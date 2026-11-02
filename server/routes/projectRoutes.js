@@ -1,29 +1,3 @@
-// const express = require("express");
-// const router = express.Router();
-
-// const {
-//   getProjects,
-//   createProject,
-// } = require("../controllers/projectController");
-
-// router.get("/", getProjects);
-// router.post("/", createProject);
-
-// module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const express = require("express");
 const router = express.Router();
@@ -36,6 +10,7 @@ const {
 } = require("../controllers/projectController");
 
 // Project list
+
 router.get("/", getProjects);
 
 // New project save

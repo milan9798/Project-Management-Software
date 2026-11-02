@@ -1,377 +1,7 @@
-﻿// dusra style vala hai ye ui brother smjh gye na bhai mai kya khe rha hu tumko brother smjhao tum mere ko bhai 
-// import Sidebar from "../../components/Sidebar/Sidebar";
-// import Header from "../../components/Header/Header";
-// import "./Dashboard.css";
-// import { useState } from "react";
-// import { useLocation, useNavigate } from "react-router-dom";
-// import {
-//   FolderKanban,
-//   Activity,
-//   ClipboardList,
-//   PackageCheck,
-//   TrendingUp,
-//   DollarSign,
-//   CalendarDays,
-//   MoreHorizontal,
-//   RefreshCw,
-//   FileText,
-//   Building2,
-//   AlertTriangle,
-//   ArrowUpRight
-// } from "lucide-react";
-// const financialStats = [
-//   {
-//     title: "SALES MTD",
-//     value: "128,420",
-//     unit: "BHD",
-//     badge: "APR",
-//     badgeClass: "badge-purple",
-//     trend: "+18.4% vs last month",
-//     isPositive: true,
-//   },
-//   {
-//     title: "CASH IN HAND",
-//     value: "412,890",
-//     unit: "BHD",
-//     badge: "3 BANKS",
-//     badgeClass: "badge-emerald",
-//     detail: "Across 3 bank accounts",
-//   },
-//   {
-//     title: "AWAITING PAYMENT",
-//     value: "98,420",
-//     unit: "BHD",
-//     badge: "12",
-//     badgeClass: "badge-sky",
-//     detail: "+4 Invoices vs last week",
-//   },
-//   {
-//     title: "OVERDUE",
-//     value: "22,840",
-//     unit: "BHD",
-//     badge: "1 INVOICE",
-//     badgeClass: "badge-amber",
-//     trend: "Action needed",
-//     isWarning: true,
-//   },
-// ];
-// const modules = {
-//   projects: {
-//     title: "Project Management",
-//     description: "Manage project records, deadlines and progress.",
-//     icon: FolderKanban,
-//   },
-//   "design-bom": {
-//     title: "Design & BOM",
-//     description: "Manage engineering drawings, revisions and material lists.",
-//     icon: ClipboardList,
-//   },
-//   dispatch: {
-//     title: "Dispatch Management",
-//     description: "Track dispatch records, delivery dates and shipments.",
-//     icon: PackageCheck,
-//   },
-//   "settings-users": {
-//     title: "Settings & Users",
-//     description: "Manage software settings and user access.",
-//     icon: Activity,
-//   },
-// };
-// export default function Dashboard({ user, onLogout }) {
-//   const location = useLocation();
-//   const navigate = useNavigate();
-
-//   const routeToPage = {
-//     "/dashboard": "dashboard",
-//     "/projects": "projects",
-//     "/design-bom": "design-bom",
-//     "/dispatch": "dispatch",
-//     "/settings-users": "settings-users",
-//   };
-
-//   const activePage = routeToPage[location.pathname] || "dashboard";
-//   const [collapsed, setCollapsed] = useState(false);
-
-//   const handleNavigate = (page) => {
-//     const pageToRoute = {
-//       dashboard: "/dashboard",
-//       projects: "/projects",
-//       "design-bom": "/design-bom",
-//       dispatch: "/dispatch",
-//       "settings-users": "/settings-users",
-//     };
-//     navigate(pageToRoute[page] || "/dashboard");
-//   };
-
-//   const selectedModule = modules[activePage];
-
-//   return (
-//     <div className="topland-erp-layout">
-//       <Sidebar
-//         activePage={activePage}
-//         onNavigate={handleNavigate}  
-//         collapsed={collapsed}
-//         onToggle={() => setCollapsed((value) => !value)}
-//       />
-
-//       <div className="topland-erp-main">
-//         <Header
-//           activePage={activePage}
-//           user={user}
-//           onLogout={onLogout}
-//         />
-
-//         <main className="topland-dashboard-content">
-//           {activePage === "dashboard" ? (
-//             <>
-//               {/* Top Welcome Header */}
-//               <div className="topland-welcome-box">
-//                 <div>
-//                   <h2>Welcome back, {user?.name?.split(" ")[0] || "Rashed"}.</h2>
-//                   <p>Here&apos;s what&apos;s happening across Manama HQ today, Monday May 4 — 09:42 AST.</p>
-//                 </div>
-//                 <div className="topland-header-right">
-//                   <div className="topland-date-pill">
-//                     <CalendarDays size={16} />
-//                     <span>Apr 1 – Apr 30, 2026</span>
-//                   </div>
-//                   <button type="button" className="topland-invoice-btn">
-//                     + New Invoice
-//                   </button>
-//                 </div>
-//               </div>
-
-//               {/* 4 Stats Cards Row */}
-//               <div className="topland-stats-container">
-//                 {financialStats.map((stat, index) => (
-//                   <div key={stat.title} className={`topland-stat-card ${index === 3 ? 'topland-card-overdue' : ''}`}>
-//                     <div className="topland-card-top">
-//                       <span className="topland-card-title">{stat.title}</span>
-//                       <span className={`topland-badge ${stat.badgeClass}`}>{stat.badge}</span>
-//                     </div>
-//                     <div className="topland-card-value">
-//                       {stat.value} <span>{stat.unit}</span>
-//                     </div>
-//                     <div className="topland-card-bottom">
-//                       {stat.trend ? (
-//                         <div className={`topland-trend ${stat.isWarning ? 'warning' : 'positive'}`}>
-//                           {stat.isWarning ? <AlertTriangle size={13} /> : <TrendingUp size={13} />}
-//                           <span>{stat.trend}</span>
-//                         </div>
-//                       ) : (
-//                         <span className="topland-detail">{stat.detail}</span>
-//                       )}
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-
-//               {/* Middle Section: Revenue Graph & AR Aging */}
-//               <div className="topland-middle-grid">
-                
-//                 {/* Revenue Graph Box */}
-//                 <div className="topland-box-panel">
-//                   <div className="topland-panel-head">
-//                     <h3>Revenue & expense — last 12 months</h3>
-//                     <div className="topland-panel-head-right">
-//                       <div className="topland-toggle-tabs">
-//                         <span className="topland-tab-active">Revenue</span>
-//                         <span>Expense</span>
-//                       </div>
-//                       <MoreHorizontal size={18} className="topland-icon-dim" />
-//                     </div>
-//                   </div>
-
-//                   <div className="topland-graph-area">
-//                     <div className="topland-graph-bg-lines">
-//                       <div className="topland-dash-hline"></div>
-//                       <div className="topland-dash-hline"></div>
-//                       <div className="topland-dash-hline"></div>
-//                     </div>
-//                     <svg className="topland-svg-line" preserveAspectRatio="none" viewBox="0 0 500 150">
-//                       <path d="M 20 120 Q 80 100 140 110 T 260 80 T 380 90 T 460 40" fill="none" stroke="#6366f1" strokeWidth="2.5" />
-//                       <path d="M 20 140 Q 80 125 140 130 T 260 110 T 380 120 T 460 80" fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4 4" />
-//                     </svg>
-//                   </div>
-//                   <div className="topland-graph-months">
-//                     <span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
-//                   </div>
-//                 </div>
-
-//                 {/* AR Aging Box */}
-//                 <div className="topland-box-panel">
-//                   <div className="topland-panel-head">
-//                     <h3>AR Aging</h3>
-//                     <span className="topland-aging-total">98,420 BHD</span>
-//                   </div>
-
-//                   <div className="topland-aging-stack">
-//                     <div className="topland-aging-row">
-//                       <div className="topland-aging-info"><span>0–30 days</span> <strong>38,420.00</strong></div>
-//                       <div className="topland-progress-bar"><div className="topland-progress-fill color-green" style={{width: '40%'}}></div></div>
-//                     </div>
-//                     <div className="topland-aging-row">
-//                       <div className="topland-aging-info"><span>31–60 days</span> <strong>28,900.00</strong></div>
-//                       <div className="topland-progress-bar"><div className="topland-progress-fill color-sky" style={{width: '30%'}}></div></div>
-//                     </div>
-//                     <div className="topland-aging-row">
-//                       <div className="topland-aging-info"><span>61–90 days</span> <strong>18,250.00</strong></div>
-//                       <div className="topland-progress-bar"><div className="topland-progress-fill color-amber" style={{width: '20%'}}></div></div>
-//                     </div>
-//                     <div className="topland-aging-row">
-//                       <div className="topland-aging-info"><span>90+ days</span> <strong>12,850.00</strong></div>
-//                       <div className="topland-progress-bar"><div className="topland-progress-fill color-rose" style={{width: '15%'}}></div></div>
-//                     </div>
-//                   </div>
-//                 </div>
-
-//               </div>
-
-//               {/* Bottom Section: Top Customers & Recent Activity */}
-//               <div className="topland-bottom-grid">
-                
-//                 {/* Top Customers */}
-//                 <div className="topland-box-panel">
-//                   <div className="topland-panel-head">
-//                     <h3>Top customers — this month</h3>
-//                     <a href="#" className="topland-link">View all</a>
-//                   </div>
-
-//                   <div className="topland-customers-stack">
-//                     <div className="topland-cust-line">
-//                       <span className="topland-cust-title">Gulf Petrochemical Industries</span>
-//                       <div className="topland-cust-right">
-//                         <div className="topland-cust-track"><div className="topland-cust-bar" style={{width: '85%'}}></div></div>
-//                         <strong>4,280.50</strong>
-//                       </div>
-//                     </div>
-//                     <div className="topland-cust-line">
-//                       <span className="topland-cust-title">Bahrain Hospital Supplies Co.</span>
-//                       <div className="topland-cust-right">
-//                         <div className="topland-cust-track"><div className="topland-cust-bar" style={{width: '65%'}}></div></div>
-//                         <strong>12,950.00</strong>
-//                       </div>
-//                     </div>
-//                     <div className="topland-cust-line">
-//                       <span className="topland-cust-title">Tareeq Al Nakheel Catering</span>
-//                       <div className="topland-cust-right">
-//                         <div className="topland-cust-track"><div className="topland-cust-bar" style={{width: '50%'}}></div></div>
-//                         <strong>8,420.50</strong>
-//                       </div>
-//                     </div>
-//                     <div className="topland-cust-line">
-//                       <span className="topland-cust-title">Manama Marine Engineering</span>
-//                       <div className="topland-cust-right">
-//                         <div className="topland-cust-track"><div className="topland-cust-bar" style={{width: '40%'}}></div></div>
-//                         <strong>18,800.00</strong>
-//                       </div>
-//                     </div>
-//                     <div className="topland-cust-line">
-//                       <span className="topland-cust-title">Pearl Hotel Group</span>
-//                       <div className="topland-cust-right">
-//                         <div className="topland-cust-track"><div className="topland-cust-bar" style={{width: '30%'}}></div></div>
-//                         <strong>31,250.00</strong>
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </div>
-
-//                 {/* Recent Activity */}
-//                 <div className="topland-box-panel">
-//                   <div className="topland-panel-head">
-//                     <h3>Recent activity</h3>
-//                     <RefreshCw size={16} className="topland-icon-dim topland-pointer" />
-//                   </div>
-
-//                   <div className="topland-activity-stack">
-//                     <div className="topland-act-row">
-//                       <div className="topland-act-left">
-//                         <div className="topland-act-ico icon-sky"><FileText size={14} /></div>
-//                         <div>
-//                           <p>Invoice BHR-2025-00184 issued to Pearl Hotel Group</p>
-//                           <span>Sara A.</span>
-//                         </div>
-//                       </div>
-//                       <span className="topland-act-time">12 min ago</span>
-//                     </div>
-
-//                     <div className="topland-act-row">
-//                       <div className="topland-act-left">
-//                         <div className="topland-act-ico icon-emerald"><DollarSign size={14} /></div>
-//                         <div>
-//                           <p>Receipt RCP-2026-00091 — 8,420.500 BHD from GPIC</p>
-//                           <span>Mahmood</span>
-//                         </div>
-//                       </div>
-//                       <span className="topland-act-time">38 min ago</span>
-//                     </div>
-
-//                     <div className="topland-act-row">
-//                       <div className="topland-act-left">
-//                         <div className="topland-act-ico icon-purple"><Building2 size={14} /></div>
-//                         <div>
-//                           <p>GRN-2026-00037 received from Schneider Distribution</p>
-//                           <span>Warehouse</span>
-//                         </div>
-//                       </div>
-//                       <span className="topland-act-time">1 hr ago</span>
-//                     </div>
-
-//                     <div className="topland-act-row">
-//                       <div className="topland-act-left">
-//                         <div className="topland-act-ico icon-amber"><ArrowUpRight size={14} /></div>
-//                         <div>
-//                           <p>Quotation SQ-2026-00214 sent to Pearl Hotel Group</p>
-//                           <span>Sara A.</span>
-//                         </div>
-//                       </div>
-//                       <span className="topland-act-time">2 hr ago</span>
-//                     </div>
-//                   </div>
-//                 </div>
-
-//               </div>
-//             </>
-//           ) : (
-//             <section className="topland-module-fallback">
-//               {(() => {
-//                 const Icon = selectedModule.icon;
-//                 return <div className="topland-fallback-icon"><Icon size={30} /></div>;
-//               })()}
-//               <span className="topland-fallback-tag">TOPLAND ENGINE ERP</span>
-//               <h2>{selectedModule.title}</h2>
-//               <p>{selectedModule.description}</p>
-//               <div className="topland-fallback-box">
-//                 <strong>Workspace ready for the next step</strong>
-//                 <span>Is module ka form, database aur API hum agle step mein implement karenge.</span>
-//               </div>
-//               <button type="button" className="topland-primary-btn" onClick={() => handleNavigate("dashboard")}>
-//                 Back to Dashboard
-//               </button>
-//             </section>
-//           )}
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import Sidebar from "../../components/Sidebar/Sidebar";
+﻿
+import Sidebar from "../../components/sidebar/Sidebar";
 import Header from "../../components/Header/Header";
+
 
 import ProjectManagement from "../ProjectManagement/ProjectManagement";
 
@@ -408,6 +38,7 @@ import {
   ShieldCheck,
   Gauge,
 } from "lucide-react";
+
 
 const modules = {
   projects: {
@@ -657,6 +288,7 @@ const formatCurrency = (amount) =>
   const goToDispatch = () => handleNavigate("dispatch");
 
   return (
+
     <div className="topland-erp-layout">
       <Sidebar
         activePage={activePage}
@@ -674,7 +306,7 @@ const formatCurrency = (amount) =>
 
 
 
-<main className="topland-dashboard-content">
+         <main className="topland-dashboard-content">
   {activePage === "projects" ? (
     <ProjectManagement />
   ) : activePage === "dashboard" ? (
@@ -799,6 +431,7 @@ const formatCurrency = (amount) =>
 
                   })}
                 </div>
+                
               </section>
 
               {/* Finance chart and payment overview */}
@@ -1294,7 +927,12 @@ const formatCurrency = (amount) =>
             </section>
           )}
         </main>
+
+
       </div>
+
+
     </div>
+    
   );
 }
