@@ -1,3 +1,5 @@
+
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -52,6 +54,7 @@ model Project {
 
   @@index([status])
   @@index([deliveryDate])
+   @@map("project")
 }
 
 
